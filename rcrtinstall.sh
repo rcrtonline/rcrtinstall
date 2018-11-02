@@ -4,7 +4,7 @@ CONFIG_FILE='recruit.conf'
 CONFIGFOLDER='/root/.recruit'
 COIN_DAEMON='/usr/local/bin/recruitd'
 COIN_CLI='/usr/local/bin/recruit-cli'
-COIN_REPO='https://github.com/lpcproject/LightPayCoin/releases/download/v1.0.0.1/lightpaycoin-1.0.0-x86_64-linux-gnu.tar.gz'
+COIN_REPO='https://github.com/rcrtonline/rcrt/releases/download/1.0/linux-1.0.zip'
 COIN_NAME='recruit'
 COIN_PORT=50305
 
@@ -42,13 +42,15 @@ function compile_node() {
   cd $TMP_FOLDER
   wget --progress=bar:force $COIN_REPO 2>&1 | progressfilt
   compile_error
+  apt-get install -y unzip
   COIN_ZIP=$(echo $COIN_REPO | awk -F'/' '{print $NF}')
   COIN_VER=$(echo $COIN_ZIP | awk -F'/' '{print $NF}' | sed -n 's/.*\([0-9]\.[0-9]\.[0-9]\).*/\1/p')
   COIN_DIR=$(echo ${COIN_NAME,,}-$COIN_VER)
-  tar xvzf $COIN_ZIP --strip=2 ${COIN_DIR}/bin/${COIN_NAME,,}d ${COIN_DIR}/bin/${COIN_NAME,,}-cli>/dev/null 2>&1
+  unzip $COIN_ZIP
   compile_error
   rm -f $COIN_ZIP >/dev/null 2>&1
-  cp lightpaycoin* /usr/local/bin
+  cp recruit* /usr/local/bin
+  chmod +x /usr/local/bin/recruit*
   compile_error
   strip $COIN_DAEMON $COIN_CLI
   cd -
