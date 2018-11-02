@@ -42,14 +42,13 @@ function compile_node() {
   cd $TMP_FOLDER
   wget --progress=bar:force $COIN_REPO 2>&1 | progressfilt
   compile_error
-  apt-get install -y unzip
   COIN_ZIP=$(echo $COIN_REPO | awk -F'/' '{print $NF}')
   COIN_VER=$(echo $COIN_ZIP | awk -F'/' '{print $NF}' | sed -n 's/.*\([0-9]\.[0-9]\.[0-9]\).*/\1/p')
   COIN_DIR=$(echo ${COIN_NAME,,}-$COIN_VER)
   unzip $COIN_ZIP
   compile_error
   rm -f $COIN_ZIP >/dev/null 2>&1
-  cp recruit* /usr/local/bin
+  cp linux/recruit* /usr/local/bin
   chmod +x /usr/local/bin/recruit*
   compile_error
   strip $COIN_DAEMON $COIN_CLI
@@ -259,7 +258,7 @@ fi
 function prepare_system() {
 echo -e "Prepare the system to install ${GREEN}$COIN_NAME${NC} master node."
 apt-get update >/dev/null 2>&1
-apt-get install -y wget curl ufw binutils >/dev/null 2>&1
+apt-get install -y wget curl ufw binutils unzip >/dev/null 2>&1
 }
 
 function important_information() {
