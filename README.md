@@ -4,9 +4,9 @@ Shell script to install a RCRT Masternode on a Linux server running Ubuntu 14.04
 ***
 ## Installation:
 ```
-git clone https://github.com/lpcproject/lpcinstall.git
-cd lpcinstall
-bash lpc-install.sh
+git clone https://github.com/rcrtonline/rcrtinstall.git
+cd rcrtinstall
+bash rcrtinstall.sh
 ```
 ***
 
